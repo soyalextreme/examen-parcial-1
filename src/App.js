@@ -24,7 +24,7 @@ const App = () => {
     let res = true;
 
     persons.map((person) => {
-      if (person.number === number) {
+      if (person.number === number && number !== update.person.number) {
         res = false;
       }
     });
@@ -90,7 +90,11 @@ const App = () => {
   return (
     <div>
       <h1>CRUD personas</h1>
-      <InputForm functionsHandlers={functionsHandlers} update={update} />
+      <InputForm
+        functionsHandlers={functionsHandlers}
+        update={update}
+        setUpdate={setUpdate}
+      />
       <PersonList
         persons={persons}
         functionsHandlers={functionsHandlers}

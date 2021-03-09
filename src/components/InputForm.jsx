@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import { v4 as uuidv4 } from "uuid";
 
-const InputForm = ({ functionsHandlers }) => {
-  const { addUser } = functionsHandlers;
+const InputForm = ({ functionsHandlers, update, setUpdate }) => {
+  useEffect(() => {
+    if (update.active) {
+      setPerson(update.person);
+    }
+  }, [update]);
+
+  const { addUser, updateUser } = functionsHandlers;
   const [person, setPerson] = useState({
     id: "",
     name: "",
@@ -28,7 +34,14 @@ const InputForm = ({ functionsHandlers }) => {
       age: parseInt(person.age),
     };
 
-    addUser(personToAdd);
+    if (update.active === true) {
+      personToAdd.id = update.person.id;
+      updateUser(personToAdd);
+      setUpdate({ active: false, person: {} });
+    } else {
+      addUser(personToAdd);
+    }
+
     setPerson({
       id: "",
       name: "",
@@ -37,9 +50,19 @@ const InputForm = ({ functionsHandlers }) => {
     });
   };
 
+  const handleCancel = () => {
+    setUpdate({ active: false, person: {} });
+    setPerson({
+      name: "",
+      age: "",
+      number: "",
+    });
+  };
+
   return (
     <>
       <section className="input-form">
+        <label>Name: </label>
         <input
           type="text"
           name="name"
@@ -47,6 +70,7 @@ const InputForm = ({ functionsHandlers }) => {
           placeholder="Name: example [Iron Man]"
           onChange={handleChange}
         />
+        <label>Age: </label>
         <input
           type="number"
           min={0}
@@ -56,6 +80,7 @@ const InputForm = ({ functionsHandlers }) => {
           placeholder="Age: example [20]"
           onChange={handleChange}
         />
+        <label>Number: </label>
         <input
           type="number"
           name="number"
@@ -64,7 +89,8 @@ const InputForm = ({ functionsHandlers }) => {
           placeholder="Number Person: example [100]"
           onChange={handleChange}
         />
-        <Button text="Add Person" onClick={handleClick} />
+        <Button text={update.active ? "Update" : "Add"} onClick={handleClick} />
+        {update.active && <Button text="cancel" onClick={handleCancel} />}
       </section>
     </>
   );
