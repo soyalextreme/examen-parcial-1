@@ -5,7 +5,7 @@ const PersonList = ({ persons, functionsHandlers, setUpdate }) => {
   const { deleteUser, updateUser } = functionsHandlers;
 
   return (
-    <section>
+    <section className="section-list">
       {persons.map((data) => (
         <Person
           key={data.id}

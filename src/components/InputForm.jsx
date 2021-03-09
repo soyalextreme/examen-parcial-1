@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "./Button";
 import { v4 as uuidv4 } from "uuid";
 
-const InputForm = ({ functionsHandlers, update, setUpdate }) => {
+const InputForm = ({ functionsHandlers, update, setUpdate, setAlertm }) => {
   useEffect(() => {
     if (update.active) {
       setPerson(update.person);
@@ -22,8 +22,6 @@ const InputForm = ({ functionsHandlers, update, setUpdate }) => {
       ...person,
       [e.target.name]: e.target.value,
     });
-
-    console.log(person);
   };
 
   const handleClick = () => {
@@ -33,6 +31,14 @@ const InputForm = ({ functionsHandlers, update, setUpdate }) => {
       number: parseInt(person.number),
       age: parseInt(person.age),
     };
+
+    if (personToAdd.name.length === 0) {
+      setAlertm({ state: true, msg: "Please! Fill the name" });
+      setTimeout(() => {
+        setAlertm({ state: false, msg: "" });
+      });
+      return;
+    }
 
     if (update.active === true) {
       personToAdd.id = update.person.id;
@@ -45,8 +51,8 @@ const InputForm = ({ functionsHandlers, update, setUpdate }) => {
     setPerson({
       id: "",
       name: "",
-      age: 0,
-      number: 0,
+      age: "",
+      number: "",
     });
   };
 
@@ -61,36 +67,45 @@ const InputForm = ({ functionsHandlers, update, setUpdate }) => {
 
   return (
     <>
-      <section className="input-form">
-        <label>Name: </label>
+      <section className="input-section">
+        <label className="label">Name: </label>
         <input
           type="text"
           name="name"
+          className="input"
           value={person.name}
           placeholder="Name: example [Iron Man]"
           onChange={handleChange}
         />
-        <label>Age: </label>
+        <label className="label">Age: </label>
         <input
           type="number"
           min={0}
           max={100}
           name="age"
+          className="input"
           value={person.age}
           placeholder="Age: example [20]"
           onChange={handleChange}
         />
-        <label>Number: </label>
+        <label className="label">Number: </label>
         <input
           type="number"
           name="number"
           min={0}
+          className="input"
           value={person.number}
           placeholder="Number Person: example [100]"
           onChange={handleChange}
         />
-        <Button text={update.active ? "Update" : "Add"} onClick={handleClick} />
-        {update.active && <Button text="cancel" onClick={handleCancel} />}
+        <Button
+          text={update.active ? "Update" : "Add"}
+          onClick={handleClick}
+          primary="primary"
+        />
+        {update.active && (
+          <Button text="cancel" onClick={handleCancel} primary="cancel" />
+        )}
       </section>
     </>
   );

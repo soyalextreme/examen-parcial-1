@@ -1,0 +1,101 @@
+* {
+  background-color: #150811;
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.main-title {
+  color: #0cbaba;
+  font-family: "RocknRoll One", sans-serif;
+  padding: 2rem;
+  text-align: center;
+}
+
+.text-font {
+  font-family: "Quicksand", sans-serif;
+}
+
+.text-light {
+  font-weight: lighter;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.input-section {
+  background-color: #26081c;
+  padding: 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 2rem;
+  margin-bottom: 2rem;
+}
+
+.label {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  font-family: "Quicksand", sans-serif;
+  width: 50%;
+  border-radius: 2rem;
+  color: #01baef;
+  text-align: center;
+}
+
+.input {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: none;
+  font-family: "Quicksand", sans-serif;
+}
+
+.button {
+  padding: 0.8rem;
+  width: 50%;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  border: solid 2px #01baef;
+  margin: 0.6rem auto;
+}
+
+.cancel {
+  border: solid 2px #0cbaba;
+}
+
+.section-list {
+  background-color: #26081c;
+  padding: 5rem 2rem;
+  border-radius: 2rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.information-section {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5rem;
+}
+
+.btn-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.alert {
+  position: fixed;
+  background-color: red;
+  color: white;
+  width: 100%;
+  text-align: center;
+  font-size: 0.4;
+  font-family: "Quicksand", sans-serif;
+}

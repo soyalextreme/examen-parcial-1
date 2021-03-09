@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Alert from "./components/Alert";
 import Button from "./components/Button";
 import InputForm from "./components/InputForm";
 import PersonList from "./components/PersonsList";
@@ -7,7 +8,8 @@ const API = "http://localhost:8000/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-  const [update, setUpdate] = useState({ active: false, person: undefined });
+  const [update, setUpdate] = useState({ active: false, person: {} });
+  const [alertm, setAlertm] = useState({ state: false, msg: "" });
 
   useEffect(() => {
     // fecth the initial state in the db
@@ -36,7 +38,11 @@ const App = () => {
     const freeNumber = findNumber(person.number);
 
     if (!freeNumber) {
-      return alert("Numero ya esta elgindo");
+      setAlertm({ state: true, msg: "Please! That number is taken" });
+      setTimeout(() => {
+        setAlertm({ state: false, msg: "" });
+      }, 5000);
+      return;
     }
 
     const response = await fetch(API, {
@@ -89,11 +95,13 @@ const App = () => {
 
   return (
     <div>
-      <h1>CRUD personas</h1>
+      {alertm.state && <Alert msg={alertm.msg} />}
+      <h1 className="main-title">CRUD Persons</h1>
       <InputForm
         functionsHandlers={functionsHandlers}
         update={update}
         setUpdate={setUpdate}
+        setAlertm={setAlertm}
       />
       <PersonList
         persons={persons}
