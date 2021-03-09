@@ -1,0 +1,10 @@
+{
+  "persons": [
+    {
+      "id": "randomId",
+      "name": "Example Person",
+      "age": 22,
+      "number": 1
+    }
+  ]
+}

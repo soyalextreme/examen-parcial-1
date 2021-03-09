@@ -1,25 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Button from "./components/Button";
+import InputForm from "./components/InputForm";
+import PersonList from "./components/PersonsList";
 
-function App() {
+const API = "http://localhost:8000/persons";
+
+const App = () => {
+  const [persons, setPersons] = useState([]);
+
+  useEffect(() => {
+    // fecth the initial state in the db
+    const fetchPersons = async () => {
+      const response = await fetch(API);
+      const data = await response.json();
+      setPersons(data);
+    };
+
+    fetchPersons();
+  }, []);
+
+  const addUser = async (person) => {
+    const freeNumber = findNumer(person.id);
+
+    if (!freeNumber) {
+      return alert("Numero ya esta elgindo");
+    }
+
+    const response = await fetch(API, {
+      method: "POST",
+      body: person,
+    });
+
+    setPersons([...persons, person]);
+
+    console.log(response);
+  };
+
+  const deletUser = async (id) => {
+    await fetch(`${API}/${id}`, {
+      method: "DElETE",
+    });
+
+    const response = await fetch(API);
+    const data = await response.json();
+    setPersons(data);
+  };
+
+  const updateUser = async (id) => {};
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PersonContext.Provider>
+      <div>
+        <h1>CRUD personas</h1>
+        <InputForm />
+        <Button text="Add Person" />
+        <PersonList />
+      </div>
+    </PersonContext.Provider>
   );
-}
+};
 
 export default App;
