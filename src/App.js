@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Alert from "./components/Alert";
-import Button from "./components/Button";
 import InputForm from "./components/InputForm";
 import PersonList from "./components/PersonsList";
 
@@ -25,6 +24,7 @@ const App = () => {
   const findNumber = (number) => {
     let res = true;
 
+    // eslint-disable-next-line
     persons.map((person) => {
       if (person.number === number && number !== update.person.number) {
         res = false;

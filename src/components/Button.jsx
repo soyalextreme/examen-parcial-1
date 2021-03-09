@@ -3,9 +3,9 @@ import React from "react";
 const Button = ({ text, onClick, primary }) => {
   return (
     <>
-      <a href="#" className={`button ${primary}`} onClick={onClick}>
+      <span href="#" className={`button ${primary}`} onClick={onClick}>
         {text}
-      </a>
+      </span>
     </>
   );
 };

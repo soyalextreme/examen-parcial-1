@@ -2,7 +2,7 @@ import React from "react";
 import Person from "./Person";
 
 const PersonList = ({ persons, functionsHandlers, setUpdate }) => {
-  const { deleteUser, updateUser } = functionsHandlers;
+  const { deleteUser } = functionsHandlers;
 
   return (
     <section className="section-list">

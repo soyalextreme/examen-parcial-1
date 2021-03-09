@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "./Button";
 
 const Person = ({ data, deleteFn, setUpdateFn }) => {
@@ -9,6 +9,9 @@ const Person = ({ data, deleteFn, setUpdateFn }) => {
       <div className="information-section mb-2">
         <h1 className="text-font text-bold mb-2">Name: {name}</h1>
         <p className="text-font mb-2">Age: {age}</p>
+        <p className="text-font mb-2" style={{ textAlign: "center" }}>
+          {age > 18 ? "You are a old now.👴" : "You are a baby.👶"}
+        </p>
         <p className="text-font mb-2">Number: {number}</p>
         <div className="btn-section">
           <Button
