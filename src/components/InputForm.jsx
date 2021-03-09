@@ -36,7 +36,7 @@ const InputForm = ({ functionsHandlers, update, setUpdate, setAlertm }) => {
       setAlertm({ state: true, msg: "Please! Fill the name" });
       setTimeout(() => {
         setAlertm({ state: false, msg: "" });
-      });
+      }, 3000);
       return;
     }
 
