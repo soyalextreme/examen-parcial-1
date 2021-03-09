@@ -1,14 +1,18 @@
 import React from "react";
-import { usePersonContext } from "../PersonContext.jsx";
 import Person from "./Person";
 
-const PersonList = () => {
-  const { persons, setPersons } = usePersonContext();
+const PersonList = ({ persons, functionsHandlers, setUpdate }) => {
+  const { deleteUser, updateUser } = functionsHandlers;
 
   return (
     <section>
       {persons.map((data) => (
-        <Person key={data.id} data={data} />
+        <Person
+          key={data.id}
+          data={data}
+          deleteFn={deleteUser}
+          setUpdateFn={setUpdate}
+        />
       ))}
     </section>
   );

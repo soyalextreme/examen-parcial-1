@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Person = ({ data }) => {
-  const { name, number, age } = data;
+const Person = ({ data, deleteFn, setUpdateFn }) => {
+  const { name, number, age, id } = data;
 
   return (
     <>
@@ -9,8 +9,10 @@ const Person = ({ data }) => {
       <p>Age: {age}</p>
       <p>Number: {number}</p>
       <div>
-        <span>Editar</span>
-        <span>Eliminar</span>
+        <span onClick={() => setUpdateFn({ active: true, person: data })}>
+          Editar
+        </span>
+        <span onClick={() => deleteFn(id)}>Eliminar</span>
       </div>
     </>
   );

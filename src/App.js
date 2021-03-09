@@ -7,6 +7,7 @@ const API = "http://localhost:8000/persons";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
+  const [update, setUpdate] = useState({ active: false, person: undefined });
 
   useEffect(() => {
     // fecth the initial state in the db
@@ -19,8 +20,20 @@ const App = () => {
     fetchPersons();
   }, []);
 
+  const findNumber = (number) => {
+    let res = true;
+
+    persons.map((person) => {
+      if (person.number === number) {
+        res = false;
+      }
+    });
+    return res;
+  };
+
   const addUser = async (person) => {
-    const freeNumber = findNumer(person.id);
+    console.log(person);
+    const freeNumber = findNumber(person.number);
 
     if (!freeNumber) {
       return alert("Numero ya esta elgindo");
@@ -28,7 +41,10 @@ const App = () => {
 
     const response = await fetch(API, {
       method: "POST",
-      body: person,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(person),
     });
 
     setPersons([...persons, person]);
@@ -36,7 +52,7 @@ const App = () => {
     console.log(response);
   };
 
-  const deletUser = async (id) => {
+  const deleteUser = async (id) => {
     await fetch(`${API}/${id}`, {
       method: "DElETE",
     });
@@ -46,17 +62,41 @@ const App = () => {
     setPersons(data);
   };
 
-  const updateUser = async (id) => {};
+  const updateUser = async (person) => {
+    const numberFree = findNumber(person.number);
+    if (!numberFree) {
+      return alert("Ese numero ya esta elegido");
+    }
+
+    await fetch(`${API}/${person.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(person),
+    });
+
+    const response = await fetch(API);
+    const data = await response.json();
+    setPersons(data);
+  };
+
+  const functionsHandlers = {
+    deleteUser,
+    updateUser,
+    addUser,
+  };
 
   return (
-    <PersonContext.Provider>
-      <div>
-        <h1>CRUD personas</h1>
-        <InputForm />
-        <Button text="Add Person" />
-        <PersonList />
-      </div>
-    </PersonContext.Provider>
+    <div>
+      <h1>CRUD personas</h1>
+      <InputForm functionsHandlers={functionsHandlers} update={update} />
+      <PersonList
+        persons={persons}
+        functionsHandlers={functionsHandlers}
+        setUpdate={setUpdate}
+      />
+    </div>
   );
 };
 

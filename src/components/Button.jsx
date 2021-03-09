@@ -1,9 +1,11 @@
 import React from "react";
 
-const Button = ({ text }) => {
+const Button = ({ text, onClick }) => {
   return (
     <>
-      <a href="#">{text}</a>
+      <a href="#" onClick={onClick}>
+        {text}
+      </a>
     </>
   );
 };
